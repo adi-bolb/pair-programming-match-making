@@ -58,12 +58,20 @@ public class AddPairingSessionRouteShould {
 	}
 
 	@Test public void
-	display_list_of_available_pairing_sessions() {
+	display_home_page_after_adding_a_new_pairing_session() {
+		ModelAndView viewModel = addSessionRoute.handle(request, response);
+
+		assertThat(viewModel.getViewName(), is("find-a-pair.tfl"));
+	}
+
+	@Test public void
+	display_list_of_available_pairing_sessions_on_home_page() {
 		given(retrievePairingSessions.all()).willReturn(ALL_PAIRING_SESSIONS);
 
 		ModelAndView viewModel = addSessionRoute.handle(request, response);
 
-		assertThat(viewModel.getViewName(), is("find-a-pair.tfl"));
+		Map<String, Object> modelAttributes = (Map<String, Object>) viewModel.getModel();
+		assertThat(modelAttributes.get("pairingSessions"), is(ALL_PAIRING_SESSIONS));
 	}
 
 }
