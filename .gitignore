@@ -1,0 +1,15 @@
+.classpath
+.project
+.settings
+target/*
+compiled/*
+
+posapp.json
+
+.idea
+/out
+**/*.iml
+*.iml
+*.log
+
+**/.DS_Store
