@@ -13,19 +13,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class XYZTest  {
+public class FindPairsTest {
 
     private final Request request = dummy(Request.class);
     private final Response response = dummy(Response.class);
 
-    private final XyzBackend backend = mock(XyzBackend.class);
+    private final Pairs backend = mock(Pairs.class);
     private final Pages pages = mock(Pages.class);
 
     @Test
     public void shouldExtractFilterCriteriaAndPassToQuery() {
         String whatYouWantToDo = "TDD kata";
         when(request.params("whatDoYouWantToDo")).thenReturn(whatYouWantToDo);
-        XYZ xyz = new XYZ(pages, backend);
+        FindPairs xyz = new FindPairs(pages, backend);
 
         xyz.handle(request, response);
 
@@ -36,11 +36,11 @@ public class XYZTest  {
     public void shouldPassFoundPairsToRendering() {
         final List<Pair> foundPairs = Arrays.asList(new Pair("Peter"));
         when(backend.findPairs(anyString())).thenReturn(foundPairs);
-        XYZ xyz = new XYZ(pages, backend);
+        FindPairs xyz = new FindPairs(pages, backend);
 
         xyz.handle(request, response);
 
-        verify(pages).availablePairs( foundPairs );
+        verify(pages).renderAsAvailable(foundPairs);
     }
 
     // xyz returns the result of the template render

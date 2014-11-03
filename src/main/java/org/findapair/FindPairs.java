@@ -4,15 +4,14 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.util.Arrays;
 import java.util.List;
 
-class XYZ implements Route {
-    private final Pages pages;
-    private final XyzBackend backend;
+public class FindPairs implements Route {
+    private final Pages template;
+    private final Pairs backend;
 
-    public XYZ(Pages pages, XyzBackend backend) {
-        this.pages = pages;
+    public FindPairs(Pages template, Pairs backend) {
+        this.template = template;
         this.backend = backend;
     }
 
@@ -22,6 +21,6 @@ class XYZ implements Route {
 
         final List<Pair> pairs = backend.findPairs(whatDoYouWantToDo);
 
-        return pages.availablePairs(pairs);
+        return template.renderAsAvailable(pairs);
     }
 }

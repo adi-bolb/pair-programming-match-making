@@ -13,7 +13,7 @@ public class Pages {
 		return loadPage("find-a-pair.html");
 	}
 
-	public String availablePairs(List<Pair> pairs) {
+	public String renderAsAvailable(List<Pair> pairs) {
 		return loadPage("available-pairs.html");
 	}
 

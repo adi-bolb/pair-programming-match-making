@@ -2,7 +2,7 @@ package org.findapair;
 
 import java.util.List;
 
-public interface XyzBackend {
+public interface Pairs {
     public List<Pair> findPairs(String whatYouWantToDo) ;
 
 }
