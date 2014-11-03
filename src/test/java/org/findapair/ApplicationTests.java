@@ -9,6 +9,8 @@ import spark.Request;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApplicationTests {
@@ -30,7 +32,15 @@ public class ApplicationTests {
 		assertThat(expected, is(pairingSession));
 	}
 
+	@Test public void testPersistObject() {
 
+		Application.PairingSession pairingSession = Application.getPairingSessionForRequest(request);
+		PersistanceLayer persistanceLayer = mock(PersistanceLayer.class);
+		Application.setPersistanceLayer(persistanceLayer);
 
+		Application.addSession(request);
+
+		verify(persistanceLayer).save(pairingSession);
+	}
 
 }

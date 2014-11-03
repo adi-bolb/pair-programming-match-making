@@ -10,23 +10,32 @@ import static spark.Spark.post;
 
 public class Application {
 
+	private static PersistanceLayer persistanceLayer;
+
 	public static void main(String[] args) {
 		Pages pages = new Pages();
 		Emailer emailer = new FakeEmailerToConsole();
 
 		get("/", (req, res) -> pages.findAPair());
 		post("/pairs", (req, res) -> pages.availablePairs());
-		post("/sessions/add", (req, res) -> addSession());
+		post("/sessions/add", (req, res) -> addSession(req));
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
 		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
 		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
 	}
 
-	public static Object addSession() {
-		// get session object from req
+	public static void setPersistanceLayer(PersistanceLayer persistanceLayer){
+		Application.persistanceLayer = persistanceLayer;
+	}
+
+	public static Object addSession(Request req) {
 		// ?? validate object
+		// get session object from req
 		// persist session object
+		PairingSession pairingSession = getPairingSessionForRequest(req);
+		persistanceLayer.save(pairingSession);
+
 		// return to initial page
 		// show the list of sessions
 		return null;
