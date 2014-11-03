@@ -23,4 +23,15 @@ public final class Emails {
             return new Email(from, to, subject, body);
         }
     }
+
+    public static class RejectionEmail {
+        public static Email make() {
+            return new Email(
+                    "something@findapair.org",
+                    "alex@boly.com",
+                    "Invitation Rejected",
+                    "Sorry, Sandro Mancuso has rejected your invitation to pair."
+            );
+        }
+    }
 }

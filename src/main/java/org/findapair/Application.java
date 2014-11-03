@@ -16,7 +16,7 @@ public class Application {
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
 		emailCompatiblePost("/invitations/:id/accept", new AcceptInvitation(pages, emailer));
-		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
+        emailCompatiblePost("/invitations/:id/reject", new RejectInvitation(pages, emailer));
 	}
 
 	private static void formCompatiblePut(String path, Route route) {
@@ -26,4 +26,5 @@ public class Application {
 	private static void emailCompatiblePost(String path, Route route) {
 		get(path, route);
 	}
+
 }
