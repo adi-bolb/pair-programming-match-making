@@ -14,6 +14,7 @@ import static spark.Spark.post;
 
 public class Application {
 
+	public static final String FIND_A_PAIR_TEMPLATE = "find-a-pair.ftl";
 	private static PersistanceLayer persistanceLayer;
 
 	public static void main(String[] args) {
@@ -50,7 +51,7 @@ public class Application {
 
 		attributes.put("pairingSessions", pairingSessions);
 
-		return new ModelAndView(attributes, "find-a-pair.ftl");
+		return new ModelAndView(attributes, FIND_A_PAIR_TEMPLATE);
 	}
 
 	public static void setPersistanceLayer(PersistanceLayer persistanceLayer){

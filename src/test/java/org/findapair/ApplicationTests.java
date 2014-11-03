@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.findapair.Application.FIND_A_PAIR_TEMPLATE;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -65,6 +66,6 @@ public class ApplicationTests {
 	@Test public void returnsToTheSamePageWhenCreatingPairingSession() {
 		ModelAndView actual = Application.addNewPairingSession(request);
 
-		assertThat(actual.getViewName(), is("find-a-pair.ftl"));
+		assertThat(actual.getViewName(), is(FIND_A_PAIR_TEMPLATE));
 	}
 }
