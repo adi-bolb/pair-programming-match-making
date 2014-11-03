@@ -79,7 +79,7 @@
 				<configuration>
 					<includes>
 						<include>**/*Test.java</include>
-						<include>**/*Should.java</include>
+						<include>**/*Specification.java</include>
 					</includes>
 				</configuration>
 			</plugin>
