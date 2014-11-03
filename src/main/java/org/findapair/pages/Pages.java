@@ -3,6 +3,7 @@ package org.findapair.pages;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,6 +42,11 @@ public class Pages {
 
 	private URI getPageResource(String pageName) throws URISyntaxException {
 		ClassLoader classLoader = getClass().getClassLoader();
-		return classLoader.getResource("pages/" + pageName).toURI();
+        String resourceName = "pages/" + pageName;
+        URL resource = classLoader.getResource(resourceName);
+        if (resource == null) {
+            throw new ThisShouldNeverHappenException(String.format("resource \"%s\" was null", resourceName));
+        }
+        return resource.toURI();
 	}
 }
