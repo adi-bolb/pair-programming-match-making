@@ -15,6 +15,7 @@ public class Application {
 	public static void main(String[] args) {
 		get("/", (req, res) -> staticPage("index.html"));
 		post("/pairs", (req, res) -> staticPage("pairs.html"));
+		post("/pairs/:name/:id", (req, res) -> staticPage("pair-notified.html"));
 	}
 
 	private static String staticPage(String pageName) {
