@@ -1,5 +1,7 @@
 package org.findapair;
 
+import spark.Route;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,10 +17,18 @@ public class Application {
 	public static void main(String[] args) {
 		get("/", (req, res) -> staticPage("index.html"));
 		post("/pairs", (req, res) -> staticPage("pairs.html"));
-		post("/pairs/:name/:id", (req, res) -> staticPage("pair-notified.html"));
 
-		get("/invitations/:id/accept", (req, res) -> staticPage("invitation-accepted.html"));
-		get("/invitations/:id/reject", (req, res) -> staticPage("invitation-rejected.html"));
+		formCompatiblePut("/invitations/:id", (req, res) -> staticPage("pair-invited.html"));
+		emailCompatiblePost("/invitations/:id/accept", (req, res) -> staticPage("invitation-accepted.html"));
+		emailCompatiblePost("/invitations/:id/reject", (req, res) -> staticPage("invitation-rejected.html"));
+	}
+
+	private static void formCompatiblePut(String path, Route route) {
+		post(path, route);
+	}
+
+	private static void emailCompatiblePost(String path, Route route) {
+		get(path, route);
 	}
 
 	private static String staticPage(String pageName) {
