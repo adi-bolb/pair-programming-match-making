@@ -19,14 +19,18 @@ public class PagesTest {
         public void shouldRenderTheNameTheSinglePairFound() {
             Pages pages = new Pages();
             String name = "ANY NAME";
-            List<Session> singleSessionFound = Arrays.asList(pair(name));
+            AvailableSessions singleSessionFound = getSessions(name);
 
             final String renderedHtml = pages.renderAsAvailable(singleSessionFound);
 
             assertThat(renderedHtml, containsString(name));
         }
 
-        private Session pair(String name) {
+        private AvailableSessions getSessions(String name) {
+            return new SomeSessions( session(name) ) ;
+        }
+
+        private Session session(String name) {
             return new Session(name, "today");
         }
 
@@ -36,13 +40,17 @@ public class PagesTest {
             String name1 = "Samir";
             String name2 = "Sandro";
             String name3 = "Adi";
-            List<Session> singleSessionFound = Arrays.asList(pair(name1), pair(name2), pair(name3));
+            AvailableSessions singleSessionFound = getSessions(name1, name2, name3);
 
             final String renderedHtml = pages.renderAsAvailable(singleSessionFound);
 
             assertThat(renderedHtml, containsString(name1));
             assertThat(renderedHtml, containsString(name2));
             assertThat(renderedHtml, containsString(name3));
+        }
+
+        private AvailableSessions getSessions(String name1, String name2, String name3) {
+            return  new SomeSessions(session(name1), session(name2), session(name3));
         }
 
     }

@@ -24,7 +24,7 @@ public class Pages {
 		return loadPage("find-a-pair.html");
 	}
 
-	public String renderAsAvailable(List<Session> availableSessions) {
+	public String renderAsAvailable(AvailableSessions availableSessions) {
         StringBuilder buf = new StringBuilder();
         for (Session session : availableSessions) {
             buf.append(renderAsAvailable(session));

@@ -34,13 +34,17 @@ public class FindPairsTest {
 
     @Test
     public void shouldPassFoundPairsToRendering() {
-        final List<Session> foundSessions = Arrays.asList(new Session("Peter", "today"));
+        final AvailableSessions foundSessions = getSessions();
         when(backend.findFor(anyString())).thenReturn(foundSessions);
         FindPairs xyz = new FindPairs(pages, backend);
 
         xyz.handle(request, response);
 
         verify(pages).renderAsAvailable(foundSessions);
+    }
+
+    private SomeSessions getSessions() {
+        return  new SomeSessions(new Session("Peter", "today"));
     }
 
     // xyz returns the result of the template render

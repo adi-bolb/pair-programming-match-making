@@ -4,8 +4,6 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-import java.util.List;
-
 public class FindPairs implements Route {
     private final Pages template;
     private final Pairs sessions;
@@ -19,7 +17,7 @@ public class FindPairs implements Route {
     public Object handle(Request req, Response res) {
         final String whatDoYouWantToDo = req.params("whatDoYouWantToDo");
 
-        final List<Session> availableSessions = sessions.findFor(whatDoYouWantToDo);
+        final AvailableSessions availableSessions = sessions.findFor(whatDoYouWantToDo);
 
         return template.renderAsAvailable(availableSessions);
     }
