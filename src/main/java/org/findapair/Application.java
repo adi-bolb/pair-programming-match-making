@@ -10,7 +10,7 @@ public class Application {
 	public static void main(String[] args) {
 		Navigation navigation = new Navigation();
 
-		get("/", (req, res) -> navigation.home());
+		get("/", (req, res) -> navigation.findAPair());
 		post("/pairs", (req, res) -> navigation.availablePairs());
 
 		formCompatiblePut("/invitations/:id", (req, res) -> navigation.pairHasBeenInvited());
