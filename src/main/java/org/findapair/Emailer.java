@@ -1,5 +1,5 @@
 package org.findapair;
 
 public interface Emailer {
-	void sendEmail();
+	void sendEmail(Email email);
 }

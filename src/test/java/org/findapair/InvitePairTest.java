@@ -18,9 +18,11 @@ public class InvitePairTest {
 	final private InvitePair invitePair = new InvitePair( pages, emailer );
 
 	@Test
-	public void shouldSendEmailWhenInvitingPair() {
-		invitePair.handle( req, res );
+	public void shouldSendTheCorrectEmailWhenInvitingPair() {
+		invitePair.handle(req, res);
 
-		verify( emailer ).sendEmail();
+		Email email = InvitationEmail.make();
+		verify(emailer).sendEmail(email);
 	}
+
 }

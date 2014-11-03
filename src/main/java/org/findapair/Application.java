@@ -11,7 +11,7 @@ public class Application {
 		Pages pages = new Pages();
 		Emailer emailer = new Emailer() {
 			@Override
-			public void sendEmail() {
+			public void sendEmail(Email email) {
 
 			}
 		};
