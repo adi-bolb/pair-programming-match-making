@@ -2,6 +2,8 @@ package org.findapair;
 
 import spark.Route;
 
+import java.util.Arrays;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -12,7 +14,7 @@ public class Application {
 		Emailer emailer = new FakeEmailerToConsole();
 
 		get("/", (req, res) -> pages.findAPair());
-		post("/pairs", new XYZ(pages));
+		post("/pairs", new XYZ(pages, null));
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
 		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());

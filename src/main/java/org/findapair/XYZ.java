@@ -4,16 +4,12 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+import java.util.Arrays;
 import java.util.List;
 
 class XYZ implements Route {
     private final Pages pages;
     private final XyzBackend backend;
-
-    public XYZ(Pages pages) {
-        this.pages = pages;
-        backend = null; //FIXME AkS: fix
-    }
 
     public XYZ(Pages pages, XyzBackend backend) {
         this.pages = pages;
@@ -24,8 +20,8 @@ class XYZ implements Route {
     public Object handle(Request req, Response res) {
         final String whatDoYouWantToDo = req.params("whatDoYouWantToDo");
 
-        final List<String> pairs = backend.findPairs(whatDoYouWantToDo);
+        final List<Pair> pairs = backend.findPairs(whatDoYouWantToDo);
 
-        return pages.availablePairs();
+        return pages.availablePairs(pairs);
     }
 }

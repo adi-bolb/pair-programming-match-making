@@ -1,15 +1,13 @@
 package org.findapair;
 
-import org.hamcrest.core.StringContains;
-import org.junit.Ignore;
 import org.junit.Test;
 import spark.Request;
 import spark.Response;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.findapair.Dummy.dummy;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,10 +15,11 @@ import static org.mockito.Mockito.when;
 
 public class XYZTest  {
 
-    private final Pages pages = dummy(Pages.class);
     private final Request request = dummy(Request.class);
     private final Response response = dummy(Response.class);
-    private XyzBackend backend = mock(XyzBackend.class);
+
+    private final XyzBackend backend = mock(XyzBackend.class);
+    private final Pages pages = mock(Pages.class);
 
     @Test
     public void shouldExtractFilterCriteriaAndPassToQuery() {
@@ -33,16 +32,20 @@ public class XYZTest  {
         verify(backend).findPairs(whatYouWantToDo);
     }
 
-    @Ignore
     @Test
-    public void shouldRendereFoundPairs() {
-        when(backend.findPairs(anyString())).thenReturn(Arrays.asList("Peter")); // TODO primitive?
-        XYZ xyz = new XYZ(pages);
+    public void shouldPassFoundPairsToRendering() {
+        final List<Pair> foundPairs = Arrays.asList(new Pair("Peter"));
+        when(backend.findPairs(anyString())).thenReturn(foundPairs);
+        XYZ xyz = new XYZ(pages, backend);
 
-        String renderedPage = xyz.handle(request, response).toString();
+        xyz.handle(request, response);
 
-        assertThat(renderedPage, new StringContains("Peter"));
+        verify(pages).availablePairs( foundPairs );
     }
+
+    // xyz returns the result of the template render
+    // nothing found
+    // header? page at all? but not the html design
 
 
 }

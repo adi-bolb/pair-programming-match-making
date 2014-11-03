@@ -6,13 +6,14 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Pages {
 	public String findAPair() {
 		return loadPage("find-a-pair.html");
 	}
 
-	public String availablePairs() {
+	public String availablePairs(List<Pair> pairs) {
 		return loadPage("available-pairs.html");
 	}
 
