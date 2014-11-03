@@ -1,6 +1,7 @@
 package org.matchmaking.controller;
 
 import org.matchmaking.actions.AddPairingSession;
+import org.matchmaking.actions.RetrievePairingSessions;
 import org.matchmaking.domain.PairingSession;
 import org.matchmaking.domain.PairingSessionFactory;
 import spark.ModelAndView;
@@ -13,7 +14,7 @@ public class AddPairingSessionRoute implements Route {
 	private PairingSessionFactory pairingSessionFactory;
 
 	public AddPairingSessionRoute(AddPairingSession addPairingSession,
-	                              PairingSessionFactory pairingSessionFactory) {
+	                              PairingSessionFactory pairingSessionFactory, RetrievePairingSessions retrievePairingSessions) {
 		this.addPairingSession = addPairingSession;
 		this.pairingSessionFactory = pairingSessionFactory;
 	}
@@ -22,6 +23,6 @@ public class AddPairingSessionRoute implements Route {
 	public ModelAndView handle(Request req, Response res) {
 		PairingSession pairingSession = pairingSessionFactory.create(req.params());
 		addPairingSession.add(pairingSession);
-		return null;
+		return new ModelAndView(null, "find-a-pair.tfl");
 	}
 }

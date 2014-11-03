@@ -4,16 +4,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.matchmaking.actions.AddPairingSession;
+import org.matchmaking.actions.RetrievePairingSessions;
 import org.matchmaking.domain.PairingSession;
 import org.matchmaking.domain.PairingSessionFactory;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.matchmaking.Dummy.dummy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -21,9 +27,12 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class AddPairingSessionRouteShould {
 
+	private static final List<PairingSession> ALL_PAIRING_SESSIONS = new ArrayList<>();
+
 	@Mock Request request;
 	@Mock PairingSessionFactory pairingSessionFactory;
 	@Mock AddPairingSession addPairingSession;
+	@Mock RetrievePairingSessions retrievePairingSessions;
 
 	private PairingSession pairingSession = dummy(PairingSession.class);
 	private Response response = dummy(Response.class);
@@ -34,7 +43,8 @@ public class AddPairingSessionRouteShould {
 	@Before
 	public void initialise() {
 		addSessionRoute = new AddPairingSessionRoute(addPairingSession,
-													 pairingSessionFactory);
+													 pairingSessionFactory,
+													 retrievePairingSessions);
 	}
 
 	@Test public void
@@ -45,6 +55,15 @@ public class AddPairingSessionRouteShould {
 		addSessionRoute.handle(request, response);
 
 		verify(addPairingSession).add(pairingSession);
-	} 
+	}
+
+	@Test public void
+	display_list_of_available_pairing_sessions() {
+		given(retrievePairingSessions.all()).willReturn(ALL_PAIRING_SESSIONS);
+
+		ModelAndView viewModel = addSessionRoute.handle(request, response);
+
+		assertThat(viewModel.getViewName(), is("find-a-pair.tfl"));
+	}
 
 }

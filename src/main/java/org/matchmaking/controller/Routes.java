@@ -2,6 +2,7 @@ package org.matchmaking.controller;
 
 import org.matchmaking.actions.AddPairingSession;
 import org.matchmaking.actions.InvitePair;
+import org.matchmaking.actions.RetrievePairingSessions;
 import org.matchmaking.domain.PairingSessionFactory;
 import org.matchmaking.infrastructure.email.Emailer;
 import org.matchmaking.infrastructure.email.FakeEmailerToConsole;
@@ -21,7 +22,9 @@ public class Routes {
 		get("/", (req, res) -> pages.findAPair());
 		post("/pairs", (req, res) -> pages.availablePairs());
 		post("/sessions/add",
-				(req, res) -> new AddPairingSessionRoute(new AddPairingSession(), new PairingSessionFactory()).handle(req, res),
+				(req, res) -> new AddPairingSessionRoute(new AddPairingSession(),
+														 new PairingSessionFactory(),
+														 new RetrievePairingSessions()).handle(req, res),
 				new FreeMarkerEngine());
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
