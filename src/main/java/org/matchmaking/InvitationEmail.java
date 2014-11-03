@@ -1,4 +1,4 @@
-package org.findapair;
+package org.matchmaking;
 
 public class InvitationEmail {
 	public static Email make() {

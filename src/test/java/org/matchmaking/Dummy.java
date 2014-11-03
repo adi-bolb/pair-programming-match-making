@@ -1,4 +1,4 @@
-package org.findapair;
+package org.matchmaking;
 
 import static org.mockito.Mockito.mock;
 

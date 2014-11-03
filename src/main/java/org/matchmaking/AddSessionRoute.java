@@ -1,4 +1,4 @@
-package org.findapair;
+package org.matchmaking;
 
 import spark.Request;
 import spark.Response;

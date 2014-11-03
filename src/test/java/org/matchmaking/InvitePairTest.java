@@ -1,10 +1,10 @@
-package org.findapair;
+package org.matchmaking;
 
 import org.junit.Test;
 import spark.Request;
 import spark.Response;
 
-import static org.findapair.Dummy.dummy;
+import static org.matchmaking.Dummy.dummy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

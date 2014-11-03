@@ -1,4 +1,4 @@
-package org.findapair;
+package org.matchmaking;
 
 import java.util.Objects;
 

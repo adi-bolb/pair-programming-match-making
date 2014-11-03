@@ -1,4 +1,4 @@
-package org.findapair;
+package org.matchmaking.domain;
 
 import static org.apache.commons.lang.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode;
