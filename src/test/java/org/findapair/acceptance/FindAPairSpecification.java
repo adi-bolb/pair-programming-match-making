@@ -6,7 +6,6 @@ import org.findapair.database.Database;
 import org.findapair.database.InMemoryDatabase;
 import org.findapair.email.Email;
 import org.findapair.email.FakeEmailer;
-import org.findapair.email.Inbox;
 import org.findapair.invitations.Invitation;
 import org.findapair.pages.Pages;
 import org.findapair.pairing.AvailablePairingSession;
@@ -42,17 +41,19 @@ public final class FindAPairSpecification {
     }
 
     private void createAvailablePairingSessionsIncluding(AvailablePairingSession session) {
-        throw new UnsupportedOperationException();
+        AvailablePairingSession someSession = new AvailablePairingSession("doesn't matter", "description");
+        database.add(someSession);
+        database.add(session);
     }
 
     private static class PotentialPair {
-        private final Inbox inbox;
+        private final FakeEmailer.Inbox inbox;
         private final EntryPoints entryPoints;
 
         private Collection<Saved<AvailablePairingSession>> availablePairingSessions;
         private Invitation invitation;
 
-        private PotentialPair(Inbox inbox, EntryPoints entryPoints) {
+        private PotentialPair(FakeEmailer.Inbox inbox, EntryPoints entryPoints) {
             this.inbox = inbox;
             this.entryPoints = entryPoints;
         }
