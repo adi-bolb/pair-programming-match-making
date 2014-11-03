@@ -8,14 +8,14 @@ import static spark.Spark.post;
 public class Application {
 
 	public static void main(String[] args) {
-		Navigation navigation = new Navigation();
+		Pages pages = new Pages();
 
-		get("/", (req, res) -> navigation.findAPair());
-		post("/pairs", (req, res) -> navigation.availablePairs());
+		get("/", (req, res) -> pages.findAPair());
+		post("/pairs", (req, res) -> pages.availablePairs());
 
-		formCompatiblePut("/invitations/:id", (req, res) -> navigation.pairHasBeenInvited());
-		emailCompatiblePost("/invitations/:id/accept", (req, res) -> navigation.invitationAccepted());
-		emailCompatiblePost("/invitations/:id/reject", (req, res) -> navigation.invitationRejected());
+		formCompatiblePut("/invitations/:id", (req, res) -> pages.pairHasBeenInvited());
+		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
+		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
 	}
 
 	private static void formCompatiblePut(String path, Route route) {
