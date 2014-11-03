@@ -1,10 +1,13 @@
-package org.matchmaking;
+package org.matchmaking.actions;
 
+import org.matchmaking.infrastructure.email.Emailer;
+import org.matchmaking.infrastructure.email.InvitationEmail;
+import org.matchmaking.view.Pages;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-class InvitePair implements Route {
+public class InvitePair implements Route {
 	private final Pages pages;
 	private Emailer emailer;
 

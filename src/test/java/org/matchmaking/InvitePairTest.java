@@ -1,6 +1,10 @@
 package org.matchmaking;
 
 import org.junit.Test;
+import org.matchmaking.actions.InvitePair;
+import org.matchmaking.infrastructure.email.Emailer;
+import org.matchmaking.infrastructure.email.InvitationEmail;
+import org.matchmaking.view.Pages;
 import spark.Request;
 import spark.Response;
 

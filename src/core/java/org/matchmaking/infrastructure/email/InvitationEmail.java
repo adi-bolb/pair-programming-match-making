@@ -1,4 +1,4 @@
-package org.matchmaking;
+package org.matchmaking.infrastructure.email;
 
 public class InvitationEmail {
 	public static Email make() {

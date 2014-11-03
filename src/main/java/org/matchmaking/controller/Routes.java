@@ -1,5 +1,9 @@
-package org.matchmaking;
+package org.matchmaking.controller;
 
+import org.matchmaking.infrastructure.email.Emailer;
+import org.matchmaking.infrastructure.email.FakeEmailerToConsole;
+import org.matchmaking.actions.InvitePair;
+import org.matchmaking.view.Pages;
 import spark.Route;
 
 import static spark.Spark.get;

@@ -1,5 +1,7 @@
 package org.matchmaking;
 
+import org.matchmaking.controller.Routes;
+
 public class PairProgrammingMatchmaking {
 
 	private Routes routes;
