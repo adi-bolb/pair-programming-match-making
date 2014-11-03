@@ -12,7 +12,7 @@ public class Application {
 		Emailer emailer = new FakeEmailerToConsole();
 
 		get("/", (req, res) -> pages.findAPair());
-		post("/pairs", (req, res) -> pages.availablePairs());
+		post("/pairs", new XYZ(pages));
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
 		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
