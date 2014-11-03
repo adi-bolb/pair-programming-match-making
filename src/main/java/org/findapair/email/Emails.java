@@ -1,4 +1,4 @@
-package org.findapair;
+package org.findapair.email;
 
 public final class Emails {
     public static final class AcceptanceEmail {

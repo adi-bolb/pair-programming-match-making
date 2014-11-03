@@ -1,10 +1,13 @@
-package org.findapair;
+package org.findapair.invitations;
 
+import org.findapair.email.Emailer;
+import org.findapair.email.Emails;
+import org.findapair.pages.Pages;
 import org.junit.Test;
 import spark.Request;
 import spark.Response;
 
-import static org.findapair.Dummy.dummy;
+import static org.findapair.testing.Dummy.dummy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 

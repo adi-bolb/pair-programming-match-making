@@ -1,5 +1,11 @@
 package org.findapair;
 
+import org.findapair.email.Emailer;
+import org.findapair.email.FakeEmailerToConsole;
+import org.findapair.invitations.AcceptInvitation;
+import org.findapair.invitations.InvitePair;
+import org.findapair.invitations.RejectInvitation;
+import org.findapair.pages.Pages;
 import spark.Route;
 
 import static spark.Spark.get;

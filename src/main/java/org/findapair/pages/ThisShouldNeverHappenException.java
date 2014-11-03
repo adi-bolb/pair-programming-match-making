@@ -1,4 +1,4 @@
-package org.findapair;
+package org.findapair.pages;
 
 public class ThisShouldNeverHappenException extends RuntimeException {
 	public ThisShouldNeverHappenException(Exception cause) {

@@ -1,10 +1,13 @@
-package org.findapair;
+package org.findapair.invitations;
 
+import org.findapair.email.Emailer;
+import org.findapair.email.Emails;
+import org.findapair.pages.Pages;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
-class InvitePair implements Route {
+public class InvitePair implements Route {
 	private final Pages pages;
 	private Emailer emailer;
 

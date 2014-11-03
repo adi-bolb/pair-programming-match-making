@@ -1,4 +1,4 @@
-package org.findapair;
+package org.findapair.pages;
 
 import java.io.IOException;
 import java.net.URI;

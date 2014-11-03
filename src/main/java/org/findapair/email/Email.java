@@ -1,4 +1,4 @@
-package org.findapair;
+package org.findapair.email;
 
 import java.util.Objects;
 
