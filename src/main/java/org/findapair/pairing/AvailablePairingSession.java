@@ -1,11 +1,19 @@
 package org.findapair.pairing;
 
 public final class AvailablePairingSession {
-    public Id id() {
-        throw new UnsupportedOperationException();
+    private final String programmerName;
+    private final String description;
+
+    public AvailablePairingSession(String programmerName, String description) {
+        this.programmerName = programmerName;
+        this.description = description;
     }
 
     public String programmerName() {
-        throw new UnsupportedOperationException();
+        return programmerName;
+    }
+
+    public String description() {
+        return description;
     }
 }

@@ -1,13 +1,16 @@
 package org.findapair;
 
+import java.util.Collection;
+import java.util.Collections;
 import org.findapair.database.Database;
 import org.findapair.email.Emailer;
 import org.findapair.invitations.AcceptInvitation;
 import org.findapair.invitations.InvitePair;
 import org.findapair.invitations.RejectInvitation;
 import org.findapair.pages.Pages;
-import org.findapair.pairing.AvailablePairingSessions;
+import org.findapair.pairing.AvailablePairingSession;
 import org.findapair.pairing.Id;
+import org.findapair.pairing.Saved;
 
 public final class EntryPoints {
     private final Pages pages;
@@ -28,8 +31,8 @@ public final class EntryPoints {
         return pages.findAPair();
     }
 
-    public AvailablePairingSessions availablePairs(String description) {
-        return new AvailablePairingSessions();
+    public Collection<Saved<AvailablePairingSession>> availablePairs(String description) {
+        return Collections.emptySet();
     }
 
     public String invitePair(Id id) {

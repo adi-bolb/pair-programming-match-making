@@ -1,5 +1,6 @@
 package org.findapair.acceptance;
 
+import java.util.Collection;
 import org.findapair.EntryPoints;
 import org.findapair.database.Database;
 import org.findapair.database.InMemoryDatabase;
@@ -8,8 +9,9 @@ import org.findapair.email.FakeEmailer;
 import org.findapair.email.Inbox;
 import org.findapair.invitations.Invitation;
 import org.findapair.pages.Pages;
-import org.findapair.pairing.AvailablePairingSessions;
+import org.findapair.pairing.AvailablePairingSession;
 import org.findapair.pairing.Id;
+import org.findapair.pairing.Saved;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ public final class FindAPairSpecification {
     findsAPairWhenAvailable() {
         PotentialPair aki = new PotentialPair(emailer.inboxOf("aki@example.com"), new EntryPoints(pages, emailer, database));
         PotentialPair alex = new PotentialPair(emailer.inboxOf("alex@example.com"), new EntryPoints(pages, emailer, database));
-        createAvailablePairsIncluding(aki);
+        createAvailablePairingSessionsIncluding(new AvailablePairingSession("Aki Salmi", "I want to work on TDD, specifically the bowling score kata."));
 
         alex.searchForPair("TDD Kata");
         alex.invite("Aki Salmi");
@@ -39,15 +41,15 @@ public final class FindAPairSpecification {
         alex.receiveAcceptanceEmailFrom("aki@example.com");
     }
 
-    private void createAvailablePairsIncluding(PotentialPair potentialPair) {
-
+    private void createAvailablePairingSessionsIncluding(AvailablePairingSession session) {
+        throw new UnsupportedOperationException();
     }
 
     private static class PotentialPair {
         private final Inbox inbox;
         private final EntryPoints entryPoints;
 
-        private AvailablePairingSessions availablePairingSessions;
+        private Collection<Saved<AvailablePairingSession>> availablePairingSessions;
         private Invitation invitation;
 
         private PotentialPair(Inbox inbox, EntryPoints entryPoints) {
@@ -60,7 +62,7 @@ public final class FindAPairSpecification {
         }
 
         public void invite(String name) {
-            Id id = availablePairingSessions.stream().filter(pair -> pair.programmerName().equals(name)).findFirst().get().id();
+            Id id = availablePairingSessions.stream().filter(pair -> pair.value().programmerName().equals(name)).findFirst().get().id();
             entryPoints.invitePair(id);
         }
 
