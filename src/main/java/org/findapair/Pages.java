@@ -9,12 +9,29 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Pages {
-	public String findAPair() {
+
+    public static final String REPLACE_WITH_THIS = "<tr>\n" +
+            "\t<td>%name%</td>\n" +
+            "\t<td>%when%</td>\n" +
+            "\t<td>\n" +
+            "\t\t<form action=\"/invitations/%id%\" method=\"post\">\n" +
+            "\t\t<input type=\"submit\" value=\"Let's pair\" />\n" +
+            "\t\t</form>\n" +
+            "\t</td>\n" +
+            "</tr>\n";
+
+    public String findAPair() {
 		return loadPage("find-a-pair.html");
 	}
 
 	public String renderAsAvailable(List<Pair> pairs) {
-		return loadPage("available-pairs.html");
+        StringBuilder buf = new StringBuilder();
+        for (Pair p : pairs) {
+            final String replaceWithThis = REPLACE_WITH_THIS;
+            buf.append(replaceWithThis.replaceAll("%name%", p.getName()));
+        }
+        final String html = loadPage("available-pairs.html");
+        return html.replaceAll("%matches%", buf.toString());
 	}
 
 	public String pairHasBeenInvited() {
