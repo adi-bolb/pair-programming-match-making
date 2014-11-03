@@ -16,7 +16,7 @@ class InvitePair implements Route {
 	@Override
 	public Object handle(Request req, Response res)  {
 
-		emailer.sendEmail(InvitationEmail.make());
+		emailer.sendEmail(Emails.InvitationEmail.make());
 		return pages.pairHasBeenInvited();
 	}
 }

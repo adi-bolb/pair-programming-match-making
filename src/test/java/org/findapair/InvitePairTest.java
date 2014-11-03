@@ -9,7 +9,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class InvitePairTest {
-
 	private final Pages pages = dummy(Pages.class);
 	private final Request req = dummy(Request.class);
 	private final Response res = dummy(Response.class);
@@ -21,7 +20,7 @@ public class InvitePairTest {
 	public void shouldSendTheCorrectEmailWhenInvitingPair() {
 		invitePair.handle(req, res);
 
-		verify(emailer).sendEmail(InvitationEmail.make());
+		verify(emailer).sendEmail(Emails.InvitationEmail.make());
 	}
 
 }
