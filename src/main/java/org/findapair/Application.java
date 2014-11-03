@@ -9,11 +9,17 @@ public class Application {
 
 	public static void main(String[] args) {
 		Pages pages = new Pages();
+		Emailer emailer = new Emailer() {
+			@Override
+			public void sendEmail() {
+
+			}
+		};
 
 		get("/", (req, res) -> pages.findAPair());
 		post("/pairs", (req, res) -> pages.availablePairs());
 
-		formCompatiblePut("/invitations/:id", (req, res) -> pages.pairHasBeenInvited());
+		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
 		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
 		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
 	}
