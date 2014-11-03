@@ -7,14 +7,14 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.findapair.pairing.AvailablePairs;
+import org.findapair.pairing.AvailablePairingSessions;
 
 public class Pages {
 	public String findAPair() {
 		return loadPage("find-a-pair.html");
 	}
 
-	public String availablePairs(AvailablePairs availablePairs) {
+	public String availablePairs(AvailablePairingSessions availablePairingSessions) {
 		return loadPage("available-pairs.html");
 	}
 

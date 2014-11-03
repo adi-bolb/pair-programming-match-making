@@ -6,7 +6,7 @@ import org.findapair.invitations.AcceptInvitation;
 import org.findapair.invitations.InvitePair;
 import org.findapair.invitations.RejectInvitation;
 import org.findapair.pages.Pages;
-import org.findapair.pairing.AvailablePairs;
+import org.findapair.pairing.AvailablePairingSessions;
 import org.findapair.pairing.Id;
 
 public final class EntryPoints {
@@ -28,8 +28,8 @@ public final class EntryPoints {
         return pages.findAPair();
     }
 
-    public AvailablePairs availablePairs(String description) {
-        return new AvailablePairs();
+    public AvailablePairingSessions availablePairs(String description) {
+        return new AvailablePairingSessions();
     }
 
     public String invitePair(Id id) {

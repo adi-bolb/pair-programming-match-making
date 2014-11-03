@@ -8,7 +8,7 @@ import org.findapair.email.FakeEmailer;
 import org.findapair.email.Inbox;
 import org.findapair.invitations.Invitation;
 import org.findapair.pages.Pages;
-import org.findapair.pairing.AvailablePairs;
+import org.findapair.pairing.AvailablePairingSessions;
 import org.findapair.pairing.Id;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public final class FindAPairSpecification {
         private final Inbox inbox;
         private final EntryPoints entryPoints;
 
-        private AvailablePairs availablePairs;
+        private AvailablePairingSessions availablePairingSessions;
         private Invitation invitation;
 
         private PotentialPair(Inbox inbox, EntryPoints entryPoints) {
@@ -56,11 +56,11 @@ public final class FindAPairSpecification {
         }
 
         public void searchForPair(String description) {
-            this.availablePairs = entryPoints.availablePairs(description);
+            this.availablePairingSessions = entryPoints.availablePairs(description);
         }
 
         public void invite(String name) {
-            Id id = availablePairs.stream().filter(pair -> pair.name().equals(name)).findFirst().get().id();
+            Id id = availablePairingSessions.stream().filter(pair -> pair.programmerName().equals(name)).findFirst().get().id();
             entryPoints.invitePair(id);
         }
 
