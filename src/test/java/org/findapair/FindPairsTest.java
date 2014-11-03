@@ -29,18 +29,18 @@ public class FindPairsTest {
 
         xyz.handle(request, response);
 
-        verify(backend).findPairs(whatYouWantToDo);
+        verify(backend).findFor(whatYouWantToDo);
     }
 
     @Test
     public void shouldPassFoundPairsToRendering() {
-        final List<Pair> foundPairs = Arrays.asList(new Pair("Peter"));
-        when(backend.findPairs(anyString())).thenReturn(foundPairs);
+        final List<Session> foundSessions = Arrays.asList(new Session("Peter", "today"));
+        when(backend.findFor(anyString())).thenReturn(foundSessions);
         FindPairs xyz = new FindPairs(pages, backend);
 
         xyz.handle(request, response);
 
-        verify(pages).renderAsAvailable(foundPairs);
+        verify(pages).renderAsAvailable(foundSessions);
     }
 
     // xyz returns the result of the template render

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class FakePairs implements Pairs {
     @Override
-    public List<Pair> findPairs(String whatYouWantToDo) {
-        return Arrays.asList(new Pair("Aki"));
+    public List<Session> findFor(String whatYouWantToDo) {
+        return Arrays.asList(new Session("Aki", "today"));
     }
 }

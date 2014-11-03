@@ -24,17 +24,20 @@ public class Pages {
 		return loadPage("find-a-pair.html");
 	}
 
-	public String renderAsAvailable(List<Pair> pairs) {
+	public String renderAsAvailable(List<Session> availableSessions) {
         StringBuilder buf = new StringBuilder();
-        for (Pair p : pairs) {
-            final String replaceWithThis = REPLACE_WITH_THIS;
-            buf.append(replaceWithThis.replaceAll("%name%", p.getName()));
+        for (Session session : availableSessions) {
+            buf.append(renderAsAvailable(session));
         }
         final String html = loadPage("available-pairs.html");
         return html.replaceAll("%matches%", buf.toString());
 	}
 
-	public String pairHasBeenInvited() {
+    private String renderAsAvailable(Session session) {
+        return REPLACE_WITH_THIS.replaceAll("%name%", session.getPairName()).replaceAll("%when%", session.getTime());
+    }
+
+    public String pairHasBeenInvited() {
 		return loadPage("pair-invited.html");
 	}
 

@@ -19,15 +19,15 @@ public class PagesTest {
         public void shouldRenderTheNameTheSinglePairFound() {
             Pages pages = new Pages();
             String name = "ANY NAME";
-            List<Pair> singlePairFound = Arrays.asList(pair(name));
+            List<Session> singleSessionFound = Arrays.asList(pair(name));
 
-            final String renderedHtml = pages.renderAsAvailable(singlePairFound);
+            final String renderedHtml = pages.renderAsAvailable(singleSessionFound);
 
             assertThat(renderedHtml, containsString(name));
         }
 
-        private Pair pair(String name) {
-            return new Pair(name);
+        private Session pair(String name) {
+            return new Session(name, "today");
         }
 
         @Test
@@ -36,9 +36,9 @@ public class PagesTest {
             String name1 = "Samir";
             String name2 = "Sandro";
             String name3 = "Adi";
-            List<Pair> singlePairFound = Arrays.asList(pair(name1), pair(name2), pair(name3));
+            List<Session> singleSessionFound = Arrays.asList(pair(name1), pair(name2), pair(name3));
 
-            final String renderedHtml = pages.renderAsAvailable(singlePairFound);
+            final String renderedHtml = pages.renderAsAvailable(singleSessionFound);
 
             assertThat(renderedHtml, containsString(name1));
             assertThat(renderedHtml, containsString(name2));

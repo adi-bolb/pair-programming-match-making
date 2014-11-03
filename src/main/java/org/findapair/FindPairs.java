@@ -8,19 +8,19 @@ import java.util.List;
 
 public class FindPairs implements Route {
     private final Pages template;
-    private final Pairs backend;
+    private final Pairs sessions;
 
-    public FindPairs(Pages template, Pairs backend) {
+    public FindPairs(Pages template, Pairs sessions) {
         this.template = template;
-        this.backend = backend;
+        this.sessions = sessions;
     }
 
     @Override
     public Object handle(Request req, Response res) {
         final String whatDoYouWantToDo = req.params("whatDoYouWantToDo");
 
-        final List<Pair> pairs = backend.findPairs(whatDoYouWantToDo);
+        final List<Session> availableSessions = sessions.findFor(whatDoYouWantToDo);
 
-        return template.renderAsAvailable(pairs);
+        return template.renderAsAvailable(availableSessions);
     }
 }
