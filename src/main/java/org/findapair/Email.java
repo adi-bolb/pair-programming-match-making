@@ -3,10 +3,10 @@ package org.findapair;
 import java.util.Objects;
 
 public class Email {
-	private final String from;
-	private final String to;
-	private final String subject;
-	private final String body;
+	public final String from;
+	public final String to;
+	public final String subject;
+	public final String body;
 
 	public Email(String from, String to, String subject, String body) {
 		this.from = from;
