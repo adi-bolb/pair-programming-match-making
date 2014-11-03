@@ -1,5 +1,9 @@
 package org.findapair;
 
+import java.util.List;
+
 public interface PersistanceLayer {
-	void save(Application.PairingSession pairingSession);
+	void save(PairingSession pairingSession);
+
+	List<PairingSession> getAllPairingSessions();
 }

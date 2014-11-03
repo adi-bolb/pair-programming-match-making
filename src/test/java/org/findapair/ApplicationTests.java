@@ -1,10 +1,16 @@
 package org.findapair;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import spark.ModelAndView;
 import spark.Request;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -17,30 +23,48 @@ public class ApplicationTests {
 
 	@Mock
 	private Request request;
+	private PersistanceLayer persistanceLayer;
+	public static final List<PairingSession> PAIRING_SESSIONS = new ArrayList<>();
+
+	@Before
+	public void initialise() {
+		persistanceLayer = mock(PersistanceLayer.class);
+		Application.setPersistanceLayer(persistanceLayer);
+	}
 
 	@Test
 	public void createsPairingSessionFromRequest(){
-		Application.PairingSession expected = new Application.PairingSession("Adi", "some date", "subject", "languages", "location");
-		given(request.params("name")).willReturn(expected.name());
+		PairingSession expected = new PairingSession("Adi", "some date", "subject", "languages", "location");
+		given(request.params("name")).willReturn(expected.getName());
 		given(request.params("date")).willReturn(expected.date());
 		given(request.params("subject")).willReturn(expected.subject());
 		given(request.params("languages")).willReturn(expected.languages());
 		given(request.params("location")).willReturn(expected.location());
 
-		Application.PairingSession pairingSession = Application.getPairingSessionForRequest(request);
+		PairingSession pairingSession = Application.getPairingSessionForRequest(request);
 
 		assertThat(expected, is(pairingSession));
 	}
 
-	@Test public void testPersistObject() {
-
-		Application.PairingSession pairingSession = Application.getPairingSessionForRequest(request);
-		PersistanceLayer persistanceLayer = mock(PersistanceLayer.class);
-		Application.setPersistanceLayer(persistanceLayer);
+	@Test public void persistsPairingSession() {
+		PairingSession pairingSession = Application.getPairingSessionForRequest(request);
 
 		Application.addSession(request);
 
 		verify(persistanceLayer).save(pairingSession);
 	}
 
+	@Test public void showAllPairingSessions() {
+		given(persistanceLayer.getAllPairingSessions()).willReturn(PAIRING_SESSIONS);
+
+		ModelAndView actual = Application.addNewPairingSession(request);
+
+		assertThat(((Map <String, Object>) actual.getModel()).get("pairingSessions"), is(PAIRING_SESSIONS));
+	}
+
+	@Test public void returnsToTheSamePageWhenCreatingPairingSession() {
+		ModelAndView actual = Application.addNewPairingSession(request);
+
+		assertThat(actual.getViewName(), is("find-a-pair.ftl"));
+	}
 }

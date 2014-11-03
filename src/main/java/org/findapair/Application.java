@@ -1,10 +1,14 @@
 package org.findapair;
 
+import spark.ModelAndView;
 import spark.Request;
 import spark.Route;
+import spark.template.freemarker.FreeMarkerEngine;
 
-import static org.apache.commons.lang.builder.EqualsBuilder.reflectionEquals;
-import static org.apache.commons.lang.builder.HashCodeBuilder.reflectionHashCode;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -13,36 +17,56 @@ public class Application {
 	private static PersistanceLayer persistanceLayer;
 
 	public static void main(String[] args) {
+		setPersistanceLayer(new PersistanceLayer() {
+			@Override
+			public void save(PairingSession pairingSession) {
+
+			}
+
+			@Override
+			public List<PairingSession> getAllPairingSessions() {
+				return null;
+			}
+		});
 		Pages pages = new Pages();
 		Emailer emailer = new FakeEmailerToConsole();
 
 		get("/", (req, res) -> pages.findAPair());
 		post("/pairs", (req, res) -> pages.availablePairs());
-		post("/sessions/add", (req, res) -> addSession(req));
+		post("/sessions/add", (req, res) -> addNewPairingSession(req), new FreeMarkerEngine());
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
 		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
 		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
 	}
 
+	public static ModelAndView addNewPairingSession(Request req) {
+		addSession(req);
+
+		Map<String, Object> attributes = new HashMap<>();
+
+
+		List<PairingSession> pairingSessions = persistanceLayer.getAllPairingSessions();
+
+		attributes.put("pairingSessions", pairingSessions);
+
+		return new ModelAndView(attributes, "find-a-pair.ftl");
+	}
+
 	public static void setPersistanceLayer(PersistanceLayer persistanceLayer){
 		Application.persistanceLayer = persistanceLayer;
 	}
 
-	public static Object addSession(Request req) {
+	public static void addSession(Request req) {
+		System.out.println("add session *****");
 		// ?? validate object
 		// get session object from req
 		// persist session object
 		PairingSession pairingSession = getPairingSessionForRequest(req);
 		persistanceLayer.save(pairingSession);
-
-		// return to initial page
-		// show the list of sessions
-		return null;
 	}
 
 	public static PairingSession getPairingSessionForRequest(Request req){
-
 		String name = req.params("name");
 		String date = req.params("date");
 		String subject = req.params("subject");
@@ -59,50 +83,4 @@ public class Application {
 		get(path, route);
 	}
 
-	public static class PairingSession {
-		private final String name;
-		private final String date;
-		private final String subject;
-		private final String languages;
-		private final String location;
-
-		public PairingSession(String name, String date, String subject, String languages, String location) {
-			this.name = name;
-			this.date = date;
-			this.subject = subject;
-			this.languages = languages;
-			this.location = location;
-		}
-
-		public String name() {
-			return name;
-		}
-
-		public String date() {
-			return date;
-		}
-
-		public String subject() {
-			return subject;
-		}
-
-		public String languages() {
-			return languages;
-		}
-
-		public String location() {
-			return location;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			return reflectionEquals(this, o);
-		}
-
-		@Override
-		public int hashCode() {
-			return reflectionHashCode(this);
-		}
-
-	}
 }
