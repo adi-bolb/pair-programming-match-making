@@ -9,6 +9,7 @@ import spark.ModelAndView;
 import spark.Route;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import static org.matchmaking.view.Pages.FIND_A_PAIR;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -35,7 +36,7 @@ public class Routes {
 	}
 
 	private void initialiseHomePageRoute() {
-		get("/", (req, res) -> new ModelAndView(NO_ATTRIBUTES, "find-a-pair.ftl"), new FreeMarkerEngine());
+		get("/", (req, res) -> new ModelAndView(NO_ATTRIBUTES, FIND_A_PAIR), new FreeMarkerEngine());
 	}
 
 	private void initialiseInvitationRoutes() {
