@@ -16,24 +16,40 @@ import static spark.Spark.post;
 
 public class Routes {
 
+	private Pages pages;
 	private AddPairingSession addPairingSession;
 	private PairingSessionFactory pairingSessionFactory;
 	private RetrievePairingSessions retrievePairingSessions;
 
 	@Inject
-	public Routes(AddPairingSession addPairingSession,
+	public Routes(Pages pages,
+				  AddPairingSession addPairingSession,
 	              PairingSessionFactory pairingSessionFactory,
 	              RetrievePairingSessions retrievePairingSessions) {
+		this.pages = pages;
 		this.addPairingSession = addPairingSession;
 		this.pairingSessionFactory = pairingSessionFactory;
 		this.retrievePairingSessions = retrievePairingSessions;
 	}
 
 	public void initialise() {
-		Pages pages = new Pages();
-		Emailer emailer = new FakeEmailerToConsole();
+		initialiseHomePageRoute();
+		initialisePairingSessionRoutes();
+		initialiseInvitationRoutes();
+	}
 
+	private void initialiseHomePageRoute() {
 		get("/", (req, res) -> pages.findAPair());
+	}
+
+	private void initialiseInvitationRoutes() {
+		Emailer emailer = new FakeEmailerToConsole();
+		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
+		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
+		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
+	}
+
+	private void initialisePairingSessionRoutes() {
 		post("/pairs", (req, res) -> pages.availablePairs());
 		post("/sessions/add",
 				(req, res) -> new AddPairingSessionRoute(addPairingSession,
@@ -41,10 +57,6 @@ public class Routes {
 														retrievePairingSessions)
 											.handle(req, res),
 				new FreeMarkerEngine());
-
-		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
-		emailCompatiblePost("/invitations/:id/accept", (req, res) -> pages.invitationAccepted());
-		emailCompatiblePost("/invitations/:id/reject", (req, res) -> pages.invitationRejected());
 	}
 
 	private void formCompatiblePut(String path, Route route) {
