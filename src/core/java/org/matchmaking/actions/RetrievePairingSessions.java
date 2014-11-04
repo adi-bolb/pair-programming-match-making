@@ -1,12 +1,18 @@
 package org.matchmaking.actions;
 
 import org.matchmaking.domain.PairingSession;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.matchmaking.domain.PairingSessionRepository;
 
 import java.util.List;
 
 public class RetrievePairingSessions {
+	private PairingSessionRepository pairingSessionRepository;
+
+	public RetrievePairingSessions(PairingSessionRepository pairingSessionRepository) {
+		this.pairingSessionRepository = pairingSessionRepository;
+	}
+
 	public List<PairingSession> all() {
-		throw new NotImplementedException();
+		return pairingSessionRepository.all();
 	}
 }
