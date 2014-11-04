@@ -4,48 +4,29 @@ import org.findapair.pages.AvailableSessionsPage;
 import org.findapair.pages.Page;
 import org.findapair.pages.PageLoader;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class Pages {
 
     public String findAPair() {
-		return loadPage("find-a-pair.html");
+		return getPageLoader().loadPage("find-a-pair.html");
 	}
 
     public String pairHasBeenInvited() {
-		return loadPage("pair-invited.html");
+		return getPageLoader().loadPage("pair-invited.html");
 	}
 
 	public String invitationAccepted() {
-		return loadPage("invitation-accepted.html");
+		return getPageLoader().loadPage("invitation-accepted.html");
 	}
 
 	public String invitationRejected() {
-		return loadPage("invitation-rejected.html");
-	}
-
-	private String loadPage(String pageName) {
-		try {
-			URI pageUri = getPageResource(pageName);
-			Path pagePath = Paths.get(pageUri);
-			return new String(Files.readAllBytes(pagePath));
-
-		} catch (URISyntaxException | IOException e) {
-			throw new ThisShouldNeverHappenException(e);
-		}
-	}
-
-	private URI getPageResource(String pageName) throws URISyntaxException {
-		ClassLoader classLoader = getClass().getClassLoader();
-		return classLoader.getResource("pages/" + pageName).toURI();
+		return getPageLoader().loadPage("invitation-rejected.html");
 	}
 
     public Page getAvailableSessionsPage(AvailableSessions foundSessions) {
-        return new AvailableSessionsPage(new PageLoader(), foundSessions);
+        return new AvailableSessionsPage(getPageLoader(), foundSessions);
+    }
+
+    private PageLoader getPageLoader() {
+        return new PageLoader();
     }
 }
