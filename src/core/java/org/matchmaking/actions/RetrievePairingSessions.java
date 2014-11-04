@@ -1,18 +1,20 @@
 package org.matchmaking.actions;
 
+import com.google.inject.Inject;
 import org.matchmaking.domain.PairingSession;
-import org.matchmaking.domain.PairingSessionRepository;
+import org.matchmaking.domain.PairingSessions;
 
 import java.util.List;
 
 public class RetrievePairingSessions {
-	private PairingSessionRepository pairingSessionRepository;
+	private PairingSessions pairingSessions;
 
-	public RetrievePairingSessions(PairingSessionRepository pairingSessionRepository) {
-		this.pairingSessionRepository = pairingSessionRepository;
+	@Inject
+	public RetrievePairingSessions(PairingSessions pairingSessions) {
+		this.pairingSessions = pairingSessions;
 	}
 
 	public List<PairingSession> all() {
-		return pairingSessionRepository.all();
+		return pairingSessions.all();
 	}
 }

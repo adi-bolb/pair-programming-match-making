@@ -2,17 +2,17 @@ package org.matchmaking.actions;
 
 import com.google.inject.Inject;
 import org.matchmaking.domain.PairingSession;
-import org.matchmaking.domain.PairingSessionRepository;
+import org.matchmaking.domain.PairingSessions;
 
 public class AddPairingSession {
-	private PairingSessionRepository pairingSessionRepository;
+	private PairingSessions pairingSessions;
 
 	@Inject
-	public AddPairingSession(PairingSessionRepository pairingSessionRepository) {
-		this.pairingSessionRepository = pairingSessionRepository;
+	public AddPairingSession(PairingSessions pairingSessions) {
+		this.pairingSessions = pairingSessions;
 	}
 
 	public void add(PairingSession pairingSession) {
-		pairingSessionRepository.add(pairingSession);
+		pairingSessions.add(pairingSession);
 	}
 }

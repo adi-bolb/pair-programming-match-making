@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.matchmaking.domain.PairingSession;
-import org.matchmaking.domain.PairingSessionRepository;
+import org.matchmaking.domain.PairingSessions;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -20,18 +20,19 @@ public class RetrievePairingSessionShould {
 
 	private static final List<PairingSession> ALL_PAIRING_SESSIONS = new ArrayList<>();
 
-	@Mock PairingSessionRepository pairingSessionRepository;
+	@Mock
+	PairingSessions pairingSessions;
 
 	private RetrievePairingSessions retrievePairingSessions;
 
 	@Before
 	public void initialise() {
-	    retrievePairingSessions = new RetrievePairingSessions(pairingSessionRepository);
+	    retrievePairingSessions = new RetrievePairingSessions(pairingSessions);
 	}
 
 	@Test public void
 	return_all_pairing_sessions() {
-		given(pairingSessionRepository.all()).willReturn(ALL_PAIRING_SESSIONS);
+		given(pairingSessions.all()).willReturn(ALL_PAIRING_SESSIONS);
 
 		List<PairingSession> pairingSessions = retrievePairingSessions.all();
 

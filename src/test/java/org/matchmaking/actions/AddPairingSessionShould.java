@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.matchmaking.domain.PairingSession;
-import org.matchmaking.domain.PairingSessionRepository;
+import org.matchmaking.domain.PairingSessions;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -14,13 +14,14 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class AddPairingSessionShould {
 
-	@Mock PairingSessionRepository pairingSessionRepository;
+	@Mock
+	PairingSessions pairingSessions;
 
 	private AddPairingSession addPairingSession;
 
 	@Before
 	public void initialise() {
-	    addPairingSession = new AddPairingSession(pairingSessionRepository);
+	    addPairingSession = new AddPairingSession(pairingSessions);
 	}
 
 	@Test public void
@@ -29,6 +30,6 @@ public class AddPairingSessionShould {
 
 		addPairingSession.add(pairingSession);
 
-		verify(pairingSessionRepository).add(pairingSession);
+		verify(pairingSessions).add(pairingSession);
 	}
 }
