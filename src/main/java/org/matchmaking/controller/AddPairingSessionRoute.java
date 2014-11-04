@@ -12,6 +12,8 @@ import spark.Route;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.matchmaking.view.Pages.FIND_A_PAIR;
+
 public class AddPairingSessionRoute implements Route {
 	private AddPairingSession addPairingSession;
 	private PairingSessionFactory pairingSessionFactory;
@@ -32,6 +34,6 @@ public class AddPairingSessionRoute implements Route {
 
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("pairingSessions", retrievePairingSessions.all());
-		return new ModelAndView(attributes, "find-a-pair.tfl");
+		return new ModelAndView(attributes, FIND_A_PAIR);
 	}
 }

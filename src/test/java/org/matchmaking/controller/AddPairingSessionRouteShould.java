@@ -21,6 +21,7 @@ import java.util.Map;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.matchmaking.Dummy.dummy;
+import static org.matchmaking.view.Pages.FIND_A_PAIR;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -61,7 +62,7 @@ public class AddPairingSessionRouteShould {
 	display_home_page_after_adding_a_new_pairing_session() {
 		ModelAndView viewModel = addSessionRoute.handle(request, response);
 
-		assertThat(viewModel.getViewName(), is("find-a-pair.tfl"));
+		assertThat(viewModel.getViewName(), is(FIND_A_PAIR));
 	}
 
 	@Test public void
