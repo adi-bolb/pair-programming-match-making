@@ -1,7 +1,6 @@
 package org.findapair;
 
-import org.findapair.pages.AvailableSessionsPage;
-import org.findapair.pages.PageLoader;
+import org.findapair.pages.Page;
 import org.junit.Test;
 import spark.Request;
 import spark.Response;
@@ -14,21 +13,40 @@ public class FindPairsTest {
     private final Request request = dummy(Request.class);
     private final Response response = dummy(Response.class);
 
-    private final Pairs backend = mock(Pairs.class);
+    private final Pairs pairsFinder = mock(Pairs.class);
     private final Pages pages = mock(Pages.class);
 
     @Test
     public void shouldExtractFilterCriteriaAndPassToQuery() {
         final AvailableSessions foundSessions = getSessions();
         String whatYouWantToDo = "TDD kata";
-        when(request.params("whatDoYouWantToDo")).thenReturn(whatYouWantToDo);
-        when(backend.findFor(whatYouWantToDo)).thenReturn(foundSessions);
-        when(pages.getSessionsPage(any())).thenReturn(new AvailableSessionsPage(new PageLoader(), foundSessions));
-        FindPairs findPairs = new FindPairs(pages, backend);
+        when(request.queryParams("whatDoYouWantToDo")).thenReturn(whatYouWantToDo);
+        when(pairsFinder.findFor(whatYouWantToDo)).thenReturn(foundSessions);
+        when(pages.getSessionsPage(foundSessions)).thenReturn(aPage());
+        FindPairs findPairs = new FindPairs(pages, pairsFinder);
 
         findPairs.handle(request, response);
 
-        verify(pages).getSessionsPage(foundSessions);
+        verify(pairsFinder).findFor(whatYouWantToDo);
+    }
+
+    @Test
+    public void shouldFindPageAndRenderIt() {
+        final AvailableSessions foundSessions = getSessions();
+        String whatYouWantToDo = "TDD kata";
+        when(request.queryParams(anyString())).thenReturn(whatYouWantToDo);
+        when(pairsFinder.findFor(whatYouWantToDo)).thenReturn(foundSessions);
+        Page aPage = aPage();
+        when(pages.getSessionsPage(foundSessions)).thenReturn(aPage);
+        FindPairs findPairs = new FindPairs(pages, pairsFinder);
+
+        findPairs.handle(request, response);
+
+        verify(aPage).render();
+    }
+
+    private Page aPage() {
+        return mock(Page.class);
     }
 
     private SomeSessions getSessions() {

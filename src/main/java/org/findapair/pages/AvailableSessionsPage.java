@@ -2,6 +2,7 @@ package org.findapair.pages;
 
 import org.findapair.AvailableSessions;
 import org.findapair.Session;
+import org.findapair.SomeSessions;
 
 public class AvailableSessionsPage implements Page {
     public static final String REPLACE_WITH_THIS = "<tr>\n" +
@@ -35,4 +36,9 @@ public class AvailableSessionsPage implements Page {
     private String renderAsAvailable(Session session) {
         return REPLACE_WITH_THIS.replaceAll("%name%", session.getPairName()).replaceAll("%when%", session.getTime());
     }
+
+    public boolean canYouRender(AvailableSessions sessions){
+        return sessions instanceof SomeSessions;
+    }
+
 }

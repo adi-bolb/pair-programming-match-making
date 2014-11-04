@@ -5,6 +5,9 @@ import org.findapair.pages.NoSessionsFoundPage;
 import org.findapair.pages.Page;
 import org.findapair.pages.PageLoader;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Pages {
 
     public String findAPair() {
@@ -24,8 +27,11 @@ public class Pages {
 	}
 
     public Page getSessionsPage(AvailableSessions foundSessions) {
-        if(foundSessions instanceof NoneSessions) return new NoSessionsFoundPage();
-        return new AvailableSessionsPage(getPageLoader(), foundSessions);
+        List<Page> pages = Arrays.asList(new NoSessionsFoundPage(), new AvailableSessionsPage(getPageLoader(), foundSessions));
+        for (Page page : pages) {
+            if(page.canYouRender(foundSessions)) return page;
+        }
+        throw new ThisShouldNeverHappenException(null);
     }
 
     private PageLoader getPageLoader() {

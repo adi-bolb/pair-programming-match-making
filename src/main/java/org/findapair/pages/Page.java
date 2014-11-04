@@ -4,4 +4,6 @@ import org.findapair.AvailableSessions;
 
 public interface Page {
     String render();
+
+    boolean canYouRender(AvailableSessions sessions);
 }
