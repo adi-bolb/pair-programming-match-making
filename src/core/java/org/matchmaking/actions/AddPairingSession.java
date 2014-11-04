@@ -1,10 +1,16 @@
 package org.matchmaking.actions;
 
 import org.matchmaking.domain.PairingSession;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.matchmaking.domain.PairingSessionRepository;
 
 public class AddPairingSession {
+	private PairingSessionRepository pairingSessionRepository;
+
+	public AddPairingSession(PairingSessionRepository pairingSessionRepository) {
+		this.pairingSessionRepository = pairingSessionRepository;
+	}
+
 	public void add(PairingSession pairingSession) {
-		throw new NotImplementedException();
+		pairingSessionRepository.add(pairingSession);
 	}
 }
