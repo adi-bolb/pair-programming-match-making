@@ -11,7 +11,6 @@ import spark.Response;
 import spark.Route;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.matchmaking.view.Pages.FIND_A_PAIR;
@@ -32,10 +31,7 @@ public class AddPairingSessionRoute implements Route {
 
 	@Override
 	public ModelAndView handle(Request req, Response res) {
-		System.out.println(req.params());
-		System.out.println(req.params("developerName"));
-
-		PairingSession pairingSession = pairingSessionFactory.create(req.params());
+		PairingSession pairingSession = pairingSessionFactory.create(req);
 		addPairingSession.add(pairingSession);
 
 		Map<String, Object> attributes = new HashMap<>();
@@ -43,8 +39,6 @@ public class AddPairingSessionRoute implements Route {
 		ModelAndView modelAndView = new ModelAndView(attributes, FIND_A_PAIR);
 
 		Map<String, Object> modelAttributes = (Map<String, Object>) modelAndView.getModel();
-		System.out.println(modelAttributes.get("pairingSessions"));
-		System.out.println(((List<PairingSession>)modelAttributes.get("pairingSessions")).get(0).getDeveloperName());
 
 		return modelAndView;
 	}

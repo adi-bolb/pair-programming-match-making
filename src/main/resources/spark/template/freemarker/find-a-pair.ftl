@@ -7,27 +7,27 @@
 <body>
 	<h1>Find a Pair</h1>
 
-	<form action="/pairs" method="post">
-		<p>What do you want to do:
-			<br/>
-			<textarea placeholder="TDD kata on Bowling score"></textarea>
-		</p>
+	<#--<form name="find-pairs" action="/pairs" method="post">-->
+		<#--<p>What do you want to do:-->
+			<#--<br/>-->
+			<#--<textarea placeholder="TDD kata on Bowling score"></textarea>-->
+		<#--</p>-->
 
-		<p>
-			<input type="submit" value="find">
-		</p>
-	</form>
+		<#--<p>-->
+			<#--<input type="submit" value="find">-->
+		<#--</p>-->
+	<#--</form>-->
 
-	<form action="/sessions/add" method="post">
+	<form name="add-session" action="/sessions/add" method="post">
 		<h1>Add session</h1>
 
 		<p>
 			<br/>
-			Name <input id="developerName" type="text"/> <br>
-			Date <input id="date" type="text"/><br>
-			Subject <input id="subject" type="text"/><br>
-			Programming languages <input id="languages" type="text"/><br>
-			Location <input id="location" type="text"/>
+			Name <input name="developerName" type="text"/> <br>
+			Date <input name="date" type="text"/><br>
+			Subject <input name="subject" type="text"/><br>
+			Programming languages <input name="languages" type="text"/><br>
+			Location <input name="location" type="text"/>
 
 		</p>
 		<p>
@@ -36,7 +36,7 @@
 	</form>
 	<p>
 		<#list pairingSessions as pairingSession>
-			${pairingSession} <br>
+			${pairingSession.developerName} <br>
 		</#list>
 	</p>
 </body>

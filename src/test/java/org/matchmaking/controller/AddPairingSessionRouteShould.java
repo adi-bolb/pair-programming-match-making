@@ -50,8 +50,8 @@ public class AddPairingSessionRouteShould {
 
 	@Test public void
 	add_new_session() {
-		given(request.params()).willReturn(paramsMap);
-		given(pairingSessionFactory.create(paramsMap)).willReturn(pairingSession);
+//		given(request.queparams()).willReturn(paramsMap);
+		given(pairingSessionFactory.create(request)).willReturn(pairingSession);
 
 		addSessionRoute.handle(request, response);
 

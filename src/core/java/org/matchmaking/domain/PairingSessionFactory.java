@@ -1,14 +1,25 @@
 package org.matchmaking.domain;
 
+import spark.Request;
+
 import java.util.Map;
 
 public class PairingSessionFactory {
-	public PairingSession create(Map<String, String> paramsMap) {
+	public PairingSession create(Request paramsMap) {
 		return new PairingSession(
-						paramsMap.get("developerName"),
-						paramsMap.getOrDefault("date", "Any date"),
-						paramsMap.getOrDefault("subject", ""),
-						paramsMap.getOrDefault("languages", ""),
-						paramsMap.getOrDefault("location", ""));
+						paramsMap.queryParams("developerName"),
+						paramsMap.queryParams("date"),
+						paramsMap.queryParams("subject"),
+						paramsMap.queryParams("languages"),
+						paramsMap.queryParams("location"));
+	}
+
+	public PairingSession create(Map<String, String> attributes) {
+		return new PairingSession(
+									attributes.get("developerName"),
+									attributes.getOrDefault("date", ""),
+									attributes.getOrDefault("subject", ""),
+									attributes.getOrDefault("languages", ""),
+									attributes.getOrDefault("location", ""));
 	}
 }

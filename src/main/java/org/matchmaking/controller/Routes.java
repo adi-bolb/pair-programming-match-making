@@ -45,8 +45,8 @@ public class Routes {
 		post("/sessions/add",
 				(req, res) -> {
 					System.out.println("** Lambda **");
-					System.out.println(req.params());
-					System.out.println(req.params("developerName"));
+					System.out.println(req.queryParams());
+					System.out.println(req.queryParams("developerName"));
 					System.out.println("** Lambda **");
 					return addPairingSessionRoute.handle(req, res);
 				},
