@@ -2,12 +2,12 @@ package org.matchmaking.infrastructure.repositories;
 
 import org.matchmaking.domain.PairingSession;
 import org.matchmaking.domain.PairingSessions;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Collections.unmodifiableList;
+import static java.util.stream.Collectors.toList;
 
 public class PairingSessionsInMemory implements PairingSessions {
 
@@ -23,7 +23,9 @@ public class PairingSessionsInMemory implements PairingSessions {
 
 	@Override
 	public List<PairingSession> findByLocation(String location) {
-		throw new NotImplementedException();
+		return pairingSessions.stream()
+							  .filter((ps) -> location.equals(ps.getLocation()))
+							  .collect(toList());
 	}
 
 }
