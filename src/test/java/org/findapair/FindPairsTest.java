@@ -23,12 +23,12 @@ public class FindPairsTest {
         String whatYouWantToDo = "TDD kata";
         when(request.params("whatDoYouWantToDo")).thenReturn(whatYouWantToDo);
         when(backend.findFor(whatYouWantToDo)).thenReturn(foundSessions);
-        when(pages.getAvailableSessionsPage(any())).thenReturn(new AvailableSessionsPage(new PageLoader(), foundSessions));
+        when(pages.getSessionsPage(any())).thenReturn(new AvailableSessionsPage(new PageLoader(), foundSessions));
         FindPairs findPairs = new FindPairs(pages, backend);
 
         findPairs.handle(request, response);
 
-        verify(pages).getAvailableSessionsPage(foundSessions);
+        verify(pages).getSessionsPage(foundSessions);
     }
 
     private SomeSessions getSessions() {

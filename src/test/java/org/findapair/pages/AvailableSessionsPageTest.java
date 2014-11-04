@@ -26,7 +26,7 @@ public class AvailableSessionsPageTest{
         AvailableSessions availableSessions = new NoneSessions();
         AvailableSessionsPage availableSessionsPage = new AvailableSessionsPage( pageLoader, availableSessions);
 
-        availableSessionsPage.renderAsAvailable();
+        availableSessionsPage.render();
 
         verify( pageLoader ).loadPage( AvailableSessionsPage.PAGE_NAME);
 
@@ -42,7 +42,7 @@ public class AvailableSessionsPageTest{
         when(pageLoader.loadPage(anyString())).thenReturn("%matches%");
         Page page = new AvailableSessionsPage(pageLoader, availableSessions);
 
-        final String renderedHtml = page.renderAsAvailable();
+        final String renderedHtml = page.render();
 
         assertThat(renderedHtml, containsString(name1));
         assertThat(renderedHtml, containsString(name2));

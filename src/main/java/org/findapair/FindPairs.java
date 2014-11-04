@@ -20,10 +20,10 @@ public class FindPairs implements Route {
 
         final AvailableSessions availableSessions = sessions.findFor(whatDoYouWantToDo);
 
-        return getAvailableSessionsPage(availableSessions).renderAsAvailable();
+        return getAvailableSessionsPage(availableSessions).render();
     }
 
     private Page getAvailableSessionsPage(AvailableSessions availableSessions) {
-        return template.getAvailableSessionsPage(availableSessions);
+        return template.getSessionsPage(availableSessions);
     }
 }

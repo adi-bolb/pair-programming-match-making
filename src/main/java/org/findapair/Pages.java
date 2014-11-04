@@ -1,6 +1,7 @@
 package org.findapair;
 
 import org.findapair.pages.AvailableSessionsPage;
+import org.findapair.pages.NoSessionsFoundPage;
 import org.findapair.pages.Page;
 import org.findapair.pages.PageLoader;
 
@@ -22,7 +23,8 @@ public class Pages {
 		return getPageLoader().loadPage("invitation-rejected.html");
 	}
 
-    public Page getAvailableSessionsPage(AvailableSessions foundSessions) {
+    public Page getSessionsPage(AvailableSessions foundSessions) {
+        if(foundSessions instanceof NoneSessions) return new NoSessionsFoundPage();
         return new AvailableSessionsPage(getPageLoader(), foundSessions);
     }
 

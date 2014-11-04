@@ -23,7 +23,7 @@ public class AvailableSessionsPage implements Page {
     }
 
     @Override
-    public String renderAsAvailable() {
+    public String render() {
         StringBuilder buf = new StringBuilder();
         for (Session session : availableSessions) {
             buf.append(renderAsAvailable(session));
