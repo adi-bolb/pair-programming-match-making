@@ -17,12 +17,15 @@ public class Routes {
 	private static final Object NO_ATTRIBUTES = null;
 	private Pages pages;
 	private AddPairingSessionRoute addPairingSessionRoute;
+	private FindPairingSessionsRoute findPairingSessionsRoute;
 
 	@Inject
 	public Routes(Pages pages,
-	              AddPairingSessionRoute addPairingSessionRoute) {
+	              AddPairingSessionRoute addPairingSessionRoute,
+	              FindPairingSessionsRoute findPairingSessionsRoute) {
 		this.pages = pages;
 		this.addPairingSessionRoute = addPairingSessionRoute;
+		this.findPairingSessionsRoute = findPairingSessionsRoute;
 	}
 
 	public void initialise() {
@@ -43,7 +46,7 @@ public class Routes {
 	}
 
 	private void initialisePairingSessionRoutes() {
-		post("/pairs", (req, res) -> pages.availablePairs());
+		post("/pairs", (req, res) -> findPairingSessionsRoute.handle(req, res));
 		post("/sessions/add",
 				(req, res) -> addPairingSessionRoute.handle(req, res),
 				new FreeMarkerEngine());

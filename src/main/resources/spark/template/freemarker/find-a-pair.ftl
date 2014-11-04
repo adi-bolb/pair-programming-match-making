@@ -8,9 +8,9 @@
 	<h1>Find a Pair</h1>
 
 	<form name="find-pairs" action="/pairs" method="post">
-		<p>What do you want to do:
-			<br/>
-			<textarea placeholder="TDD kata on Bowling score"></textarea>
+		<p>
+			<label>Location</label>
+			<input name="location" type="text" />
 		</p>
 
 		<p>
