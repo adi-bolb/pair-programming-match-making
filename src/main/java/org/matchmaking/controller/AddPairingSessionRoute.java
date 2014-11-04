@@ -4,13 +4,13 @@ import com.google.inject.Inject;
 import org.matchmaking.actions.AddPairingSession;
 import org.matchmaking.actions.RetrievePairingSessions;
 import org.matchmaking.domain.PairingSession;
-import org.matchmaking.domain.PairingSessionFactory;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.matchmaking.view.Pages.FIND_A_PAIR;
@@ -34,11 +34,11 @@ public class AddPairingSessionRoute implements Route {
 		PairingSession pairingSession = pairingSessionFactory.create(req);
 		addPairingSession.add(pairingSession);
 
-		Map<String, Object> attributes = new HashMap<>();
-		attributes.put("pairingSessions", retrievePairingSessions.all());
-		ModelAndView modelAndView = new ModelAndView(attributes, FIND_A_PAIR);
+		List<PairingSession> availablePairingSessions = retrievePairingSessions.all();
 
-		Map<String, Object> modelAttributes = (Map<String, Object>) modelAndView.getModel();
+		Map<String, Object> attributes = new HashMap<>();
+		attributes.put("pairingSessions", availablePairingSessions);
+		ModelAndView modelAndView = new ModelAndView(attributes, FIND_A_PAIR);
 
 		return modelAndView;
 	}

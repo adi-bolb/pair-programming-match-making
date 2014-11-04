@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.matchmaking.actions.AddPairingSession;
 import org.matchmaking.actions.RetrievePairingSessions;
 import org.matchmaking.domain.PairingSession;
-import org.matchmaking.domain.PairingSessionFactory;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import spark.ModelAndView;

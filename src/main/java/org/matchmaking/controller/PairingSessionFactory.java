@@ -1,5 +1,6 @@
-package org.matchmaking.domain;
+package org.matchmaking.controller;
 
+import org.matchmaking.domain.PairingSession;
 import spark.Request;
 
 import java.util.Map;

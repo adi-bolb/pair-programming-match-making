@@ -43,13 +43,7 @@ public class Routes {
 	private void initialisePairingSessionRoutes() {
 		post("/pairs", (req, res) -> pages.availablePairs());
 		post("/sessions/add",
-				(req, res) -> {
-					System.out.println("** Lambda **");
-					System.out.println(req.queryParams());
-					System.out.println(req.queryParams("developerName"));
-					System.out.println("** Lambda **");
-					return addPairingSessionRoute.handle(req, res);
-				},
+				(req, res) -> addPairingSessionRoute.handle(req, res),
 				new FreeMarkerEngine());
 	}
 

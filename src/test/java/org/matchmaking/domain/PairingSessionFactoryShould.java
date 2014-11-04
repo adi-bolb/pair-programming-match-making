@@ -1,6 +1,7 @@
 package org.matchmaking.domain;
 
 import org.junit.Test;
+import org.matchmaking.controller.PairingSessionFactory;
 
 import java.util.HashMap;
 import java.util.Map;
