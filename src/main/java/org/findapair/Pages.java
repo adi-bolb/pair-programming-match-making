@@ -1,5 +1,9 @@
 package org.findapair;
 
+import org.findapair.pages.AvailableSessionsPage;
+import org.findapair.pages.Page;
+import org.findapair.pages.PageLoader;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,32 +13,9 @@ import java.nio.file.Paths;
 
 public class Pages {
 
-    public static final String REPLACE_WITH_THIS = "<tr>\n" +
-            "\t<td>%name%</td>\n" +
-            "\t<td>%when%</td>\n" +
-            "\t<td>\n" +
-            "\t\t<form action=\"/invitations/%id%\" method=\"post\">\n" +
-            "\t\t<input type=\"submit\" value=\"Let's pair\" />\n" +
-            "\t\t</form>\n" +
-            "\t</td>\n" +
-            "</tr>\n";
-
     public String findAPair() {
 		return loadPage("find-a-pair.html");
 	}
-
-	public String renderAsAvailable(AvailableSessions availableSessions) {
-        StringBuilder buf = new StringBuilder();
-        for (Session session : availableSessions) {
-            buf.append(renderAsAvailable(session));
-        }
-        final String html = loadPage("available-pairs.html");
-        return html.replaceAll("%matches%", buf.toString());
-	}
-
-    private String renderAsAvailable(Session session) {
-        return REPLACE_WITH_THIS.replaceAll("%name%", session.getPairName()).replaceAll("%when%", session.getTime());
-    }
 
     public String pairHasBeenInvited() {
 		return loadPage("pair-invited.html");
@@ -65,6 +46,6 @@ public class Pages {
 	}
 
     public Page getAvailableSessionsPage(AvailableSessions foundSessions) {
-        return new AvailableSessionsPage();
+        return new AvailableSessionsPage(new PageLoader(), foundSessions);
     }
 }

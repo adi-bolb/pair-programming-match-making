@@ -1,5 +1,6 @@
 package org.findapair;
 
+import org.findapair.pages.Page;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -19,7 +20,7 @@ public class FindPairs implements Route {
 
         final AvailableSessions availableSessions = sessions.findFor(whatDoYouWantToDo);
 
-        return getAvailableSessionsPage(availableSessions).renderAsAvailable(availableSessions);
+        return getAvailableSessionsPage(availableSessions).renderAsAvailable();
     }
 
     private Page getAvailableSessionsPage(AvailableSessions availableSessions) {

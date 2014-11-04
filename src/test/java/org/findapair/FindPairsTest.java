@@ -1,5 +1,7 @@
 package org.findapair;
 
+import org.findapair.pages.AvailableSessionsPage;
+import org.findapair.pages.PageLoader;
 import org.junit.Test;
 import spark.Request;
 import spark.Response;
@@ -21,7 +23,7 @@ public class FindPairsTest {
         String whatYouWantToDo = "TDD kata";
         when(request.params("whatDoYouWantToDo")).thenReturn(whatYouWantToDo);
         when(backend.findFor(whatYouWantToDo)).thenReturn(foundSessions);
-        when(pages.getAvailableSessionsPage(any())).thenReturn(new AvailableSessionsPage());
+        when(pages.getAvailableSessionsPage(any())).thenReturn(new AvailableSessionsPage(new PageLoader(), foundSessions));
         FindPairs findPairs = new FindPairs(pages, backend);
 
         findPairs.handle(request, response);
