@@ -16,7 +16,7 @@ public class FindPairs implements Route {
 
     @Override
     public Object handle(Request req, Response res) {
-        final String whatDoYouWantToDo = req.params("whatDoYouWantToDo");
+        final String whatDoYouWantToDo = req.queryParams("whatDoYouWantToDo");
 
         final AvailableSessions availableSessions = sessions.findFor(whatDoYouWantToDo);
 
