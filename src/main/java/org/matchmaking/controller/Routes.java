@@ -1,5 +1,6 @@
 package org.matchmaking.controller;
 
+import com.google.inject.Inject;
 import org.matchmaking.actions.AddPairingSession;
 import org.matchmaking.actions.InvitePair;
 import org.matchmaking.actions.RetrievePairingSessions;
@@ -15,6 +16,19 @@ import static spark.Spark.post;
 
 public class Routes {
 
+	private AddPairingSession addPairingSession;
+	private PairingSessionFactory pairingSessionFactory;
+	private RetrievePairingSessions retrievePairingSessions;
+
+	@Inject
+	public Routes(AddPairingSession addPairingSession,
+	              PairingSessionFactory pairingSessionFactory,
+	              RetrievePairingSessions retrievePairingSessions) {
+		this.addPairingSession = addPairingSession;
+		this.pairingSessionFactory = pairingSessionFactory;
+		this.retrievePairingSessions = retrievePairingSessions;
+	}
+
 	public void initialise() {
 		Pages pages = new Pages();
 		Emailer emailer = new FakeEmailerToConsole();
@@ -22,9 +36,10 @@ public class Routes {
 		get("/", (req, res) -> pages.findAPair());
 		post("/pairs", (req, res) -> pages.availablePairs());
 		post("/sessions/add",
-				(req, res) -> new AddPairingSessionRoute(new AddPairingSession(),
-														 new PairingSessionFactory(),
-														 new RetrievePairingSessions()).handle(req, res),
+				(req, res) -> new AddPairingSessionRoute(addPairingSession,
+														pairingSessionFactory,
+														retrievePairingSessions)
+											.handle(req, res),
 				new FreeMarkerEngine());
 
 		formCompatiblePut("/invitations/:id", new InvitePair(pages, emailer));
