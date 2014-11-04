@@ -46,7 +46,9 @@ public class Routes {
 	}
 
 	private void initialisePairingSessionRoutes() {
-		post("/pairs", (req, res) -> findPairingSessionsRoute.handle(req, res));
+		post("/pairs",
+				(req, res) -> findPairingSessionsRoute.handle(req, res),
+				new FreeMarkerEngine());
 		post("/sessions/add",
 				(req, res) -> addPairingSessionRoute.handle(req, res),
 				new FreeMarkerEngine());
