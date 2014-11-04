@@ -7,4 +7,6 @@ public interface PairingSessions {
 	void add(PairingSession pairingSession);
 
 	List<PairingSession> all();
+
+	List<PairingSession> findByLocation(String location);
 }
