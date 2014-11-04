@@ -4,9 +4,6 @@ import org.junit.Test;
 import spark.Request;
 import spark.Response;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.findapair.Dummy.dummy;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -47,8 +44,18 @@ public class FindPairsTest {
         return  new SomeSessions(new Session("Peter", "today"));
     }
 
+    @Test
+    public void shouldRenderDifferentPageWhenNoSessionsFound() {
+        final AvailableSessions noSessions = new NoneSessions();
+        when(backend.findFor(anyString())).thenReturn(noSessions);
+        FindPairs xyz = new FindPairs(pages, backend);
+
+        xyz.handle(request, response);
+
+        verify(pages).renderNoSessionsAvailable();
+    }
+
     // xyz returns the result of the template render
-    // nothing found, different template
     // header? page at all? but not the html design
 
 
