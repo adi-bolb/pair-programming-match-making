@@ -4,14 +4,8 @@ import org.junit.Test;
 import spark.Request;
 import spark.Response;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.findapair.Dummy.dummy;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class FindPairsTest {
 
@@ -23,28 +17,20 @@ public class FindPairsTest {
 
     @Test
     public void shouldExtractFilterCriteriaAndPassToQuery() {
+        final AvailableSessions foundSessions = getSessions();
         String whatYouWantToDo = "TDD kata";
         when(request.params("whatDoYouWantToDo")).thenReturn(whatYouWantToDo);
-        FindPairs xyz = new FindPairs(pages, backend);
+        when(backend.findFor(whatYouWantToDo)).thenReturn(foundSessions);
+        when(pages.getAvailableSessionsPage(any())).thenReturn(new AvailableSessionsPage());
+        FindPairs findPairs = new FindPairs(pages, backend);
 
-        xyz.handle(request, response);
+        findPairs.handle(request, response);
 
-        verify(backend).findFor(whatYouWantToDo);
-    }
-
-    @Test
-    public void shouldPassFoundPairsToRendering() {
-        final AvailableSessions foundSessions = getSessions();
-        when(backend.findFor(anyString())).thenReturn(foundSessions);
-        FindPairs xyz = new FindPairs(pages, backend);
-
-        xyz.handle(request, response);
-
-        verify(pages).renderAsAvailable(foundSessions);
+        verify(pages).getAvailableSessionsPage(foundSessions);
     }
 
     private SomeSessions getSessions() {
-        return  new SomeSessions(new Session("Peter", "today"));
+        return new SomeSessions(new Session("Peter", "today"));
     }
 
     // xyz returns the result of the template render
