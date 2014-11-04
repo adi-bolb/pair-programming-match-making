@@ -35,9 +35,11 @@
 		</p>
 	</form>
 	<p>
-		<#list pairingSessions as pairingSession>
-			${pairingSession.developerName} <br>
-		</#list>
+		<#if pairingSessions??>
+			<#list pairingSessions as pairingSession>
+				${pairingSession.developerName} <br>
+			</#list>
+		</#if>
 	</p>
 </body>
 </html>

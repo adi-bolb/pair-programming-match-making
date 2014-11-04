@@ -5,6 +5,7 @@ import org.matchmaking.actions.InvitePair;
 import org.matchmaking.infrastructure.email.Emailer;
 import org.matchmaking.infrastructure.email.FakeEmailerToConsole;
 import org.matchmaking.view.Pages;
+import spark.ModelAndView;
 import spark.Route;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -13,6 +14,7 @@ import static spark.Spark.post;
 
 public class Routes {
 
+	private static final Object NO_ATTRIBUTES = null;
 	private Pages pages;
 	private AddPairingSessionRoute addPairingSessionRoute;
 
@@ -30,7 +32,7 @@ public class Routes {
 	}
 
 	private void initialiseHomePageRoute() {
-		get("/", (req, res) -> pages.findAPair());
+		get("/", (req, res) -> new ModelAndView(NO_ATTRIBUTES, "find-a-pair.ftl"), new FreeMarkerEngine());
 	}
 
 	private void initialiseInvitationRoutes() {

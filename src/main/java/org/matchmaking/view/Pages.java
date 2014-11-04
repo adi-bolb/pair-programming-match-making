@@ -11,10 +11,6 @@ public class Pages {
 
 	public static final String FIND_A_PAIR = "find-a-pair.ftl";
 
-	public String findAPair() {
-		return loadPage("find-a-pair.html");
-	}
-
 	public String availablePairs() {
 		return loadPage("available-pairs.html");
 	}
