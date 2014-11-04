@@ -1,10 +1,7 @@
 package org.matchmaking.controller;
 
 import com.google.inject.Inject;
-import org.matchmaking.actions.AddPairingSession;
 import org.matchmaking.actions.InvitePair;
-import org.matchmaking.actions.RetrievePairingSessions;
-import org.matchmaking.domain.PairingSessionFactory;
 import org.matchmaking.infrastructure.email.Emailer;
 import org.matchmaking.infrastructure.email.FakeEmailerToConsole;
 import org.matchmaking.view.Pages;
@@ -17,19 +14,13 @@ import static spark.Spark.post;
 public class Routes {
 
 	private Pages pages;
-	private AddPairingSession addPairingSession;
-	private PairingSessionFactory pairingSessionFactory;
-	private RetrievePairingSessions retrievePairingSessions;
+	private AddPairingSessionRoute addPairingSessionRoute;
 
 	@Inject
 	public Routes(Pages pages,
-				  AddPairingSession addPairingSession,
-	              PairingSessionFactory pairingSessionFactory,
-	              RetrievePairingSessions retrievePairingSessions) {
+	              AddPairingSessionRoute addPairingSessionRoute) {
 		this.pages = pages;
-		this.addPairingSession = addPairingSession;
-		this.pairingSessionFactory = pairingSessionFactory;
-		this.retrievePairingSessions = retrievePairingSessions;
+		this.addPairingSessionRoute = addPairingSessionRoute;
 	}
 
 	public void initialise() {
@@ -52,10 +43,13 @@ public class Routes {
 	private void initialisePairingSessionRoutes() {
 		post("/pairs", (req, res) -> pages.availablePairs());
 		post("/sessions/add",
-				(req, res) -> new AddPairingSessionRoute(addPairingSession,
-														pairingSessionFactory,
-														retrievePairingSessions)
-											.handle(req, res),
+				(req, res) -> {
+					System.out.println("** Lambda **");
+					System.out.println(req.params());
+					System.out.println(req.params("developerName"));
+					System.out.println("** Lambda **");
+					return addPairingSessionRoute.handle(req, res);
+				},
 				new FreeMarkerEngine());
 	}
 

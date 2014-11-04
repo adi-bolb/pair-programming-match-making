@@ -17,25 +17,26 @@
 			<input type="submit" value="find">
 		</p>
 	</form>
+
 	<form action="/sessions/add" method="post">
 		<h1>Add session</h1>
 
 		<p>
 			<br/>
-			Name <input id="name" type="text"/> <br>
-			Date <input id="date" type="text"><br>
-			Subject <input id="subject" type="text"><br>
-			Programming languages <input id="languages" type="text"><br>
-			Location <input id="location" type="text">
+			Name <input id="developerName" type="text"/> <br>
+			Date <input id="date" type="text"/><br>
+			Subject <input id="subject" type="text"/><br>
+			Programming languages <input id="languages" type="text"/><br>
+			Location <input id="location" type="text"/>
 
-		<p>
-			<input type="submit" value="Add session">
 		</p>
+		<p>
+			<input type="submit" value="Add session"/>
 		</p>
 	</form>
 	<p>
 		<#list pairingSessions as pairingSession>
-			${pairingSession.name} <br>
+			${pairingSession} <br>
 		</#list>
 	</p>
 </body>
