@@ -29,8 +29,7 @@ public class PairingSessionsInMemoryShould {
 
 		List<PairingSession> pairingSessions = pairingSessionsInMemory.all();
 
-	    assertThat(pairingSessions.size(), is(2));
-		assertThat(pairingSessions.get(0), is(SOME_PAIRING_SESSION));
-		assertThat(pairingSessions.get(1), is(ANOTHER_PAIRING_SESSION));
+		assertThat(pairingSessions.contains(SOME_PAIRING_SESSION), is(true));
+		assertThat(pairingSessions.contains(ANOTHER_PAIRING_SESSION), is(true));
 	}
 }
