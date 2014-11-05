@@ -141,3 +141,10 @@ Enjoyed that while showing the code there were questions and discussions about h
 #####Improvements
 Some of us were disengaged during the showing the code presentation.
 It's not that easy to have timeboxed sessions for showing code. Maybe it's a better idea that anyone who does not find value in the presentation to say so to the presenter.
+
+####Architectural kata
+Started defining non-functional requirements
+Imagined there are millions of users
+Started designing the diagram
+Looked at security, performance, did not look at availability yet
+Probably another session is necessary for this
