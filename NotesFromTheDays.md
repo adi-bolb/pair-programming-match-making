@@ -123,6 +123,14 @@ Adi and Sandro are adding the functionality to find a pair by location. They wro
 
 Adi is writing the assertions first, and only at the end writing the name of the test, after it's green. Sandro wants to write with the name of the test. Samir would write the commit message first and if the test isn't doing what the commit message says, would reset the changes and go back.
 
+#### Third Session
+Samir and Peter ended up with evil pairing. It was very funny. They ended up delaying design decisions forever, and then rushing to meet their "deadline" at the end. They're considering reverting their last commit and doing it properly.
+
+Adi and Sandro added more functionality to the website. They had a lot of discussions on code structure, and were considering writing contract tests against their API to ensure it continues to meet the spec.
+
+Aki and Alex are rendering by delegation to the first thing that can render it. There was a lot of debate over what this pattern is called and how you could do it without coupling the "if" to the "when". A functional approach was proposed, mapping over an optional handler and then applying all handlers (only one would actually be used), and an OO approach, just telling all the handlers to handle the object and letting each one decide if and how it would do it, which would usually be done with a guard clause.
+
+We all decided to regroup after lunch.
 
 ####Showing the code session
 We showed code during the session. Alex showed what he did with Samir and Aki. Sandro showed what he did with Adi. Samir showed what he did with Peter.
